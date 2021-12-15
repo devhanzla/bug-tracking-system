@@ -10,10 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211215092420) do
+ActiveRecord::Schema.define(version: 20211215111712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bugs", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "deadline"
+    t.binary "screenshot"
+    t.string "bug_type"
+    t.string "status"
+    t.integer "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "creator_id"
+    t.bigint "solver_id"
+    t.index ["creator_id"], name: "index_bugs_on_creator_id"
+    t.index ["solver_id"], name: "index_bugs_on_solver_id"
+  end
+
+  create_table "project_users", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_users_on_project_id"
+    t.index ["user_id"], name: "index_project_users_on_user_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "manager_id"
+    t.index ["manager_id"], name: "index_projects_on_manager_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
@@ -29,4 +63,9 @@ ActiveRecord::Schema.define(version: 20211215092420) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bugs", "users", column: "creator_id"
+  add_foreign_key "bugs", "users", column: "solver_id"
+  add_foreign_key "project_users", "projects"
+  add_foreign_key "project_users", "users"
+  add_foreign_key "projects", "users", column: "manager_id"
 end
