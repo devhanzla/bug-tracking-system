@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211215111712) do
+ActiveRecord::Schema.define(version: 20211215144640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,15 +31,6 @@ ActiveRecord::Schema.define(version: 20211215111712) do
     t.index ["solver_id"], name: "index_bugs_on_solver_id"
   end
 
-  create_table "project_users", force: :cascade do |t|
-    t.bigint "project_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_project_users_on_project_id"
-    t.index ["user_id"], name: "index_project_users_on_user_id"
-  end
-
   create_table "projects", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -47,6 +38,15 @@ ActiveRecord::Schema.define(version: 20211215111712) do
     t.datetime "updated_at", null: false
     t.bigint "manager_id"
     t.index ["manager_id"], name: "index_projects_on_manager_id"
+  end
+
+  create_table "projects_users", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_projects_users_on_project_id"
+    t.index ["user_id"], name: "index_projects_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20211215111712) do
 
   add_foreign_key "bugs", "users", column: "creator_id"
   add_foreign_key "bugs", "users", column: "solver_id"
-  add_foreign_key "project_users", "projects"
-  add_foreign_key "project_users", "users"
   add_foreign_key "projects", "users", column: "manager_id"
+  add_foreign_key "projects_users", "projects"
+  add_foreign_key "projects_users", "users"
 end

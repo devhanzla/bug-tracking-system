@@ -1,2 +1,24 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<% name = current_user.present? ? current_user.username : 'Stranger' %>
+
+<h1>Signed in as "<%= name %>"</h1>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">User ID</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">User Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <th scope="row"><%= user.id %></th>
+        <td><%= user.username.capitalize %></td>
+        <td><%= user.email %></td>
+        <td><%= user.user_type.capitalize %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
