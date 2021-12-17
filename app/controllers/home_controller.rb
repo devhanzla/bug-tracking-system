@@ -1,7 +1,9 @@
 class HomeController < ApplicationController
   def index
-    if current_user.present?
+    if user_signed_in?
+      @users = User.all
+    else
+      @msg = "Sign in OR REGISTER TO SEE AVAILABLE OPTIONS"
     end
-    @users = User.all
   end
 end

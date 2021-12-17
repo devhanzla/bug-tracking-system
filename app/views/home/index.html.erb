@@ -1,24 +1,35 @@
-<% name = current_user.present? ? current_user.username : 'Stranger' %>
+<% if user_signed_in? %>
+<h1>Signed in as "<%= current_user.username.capitalize %>"</h1>
+  <% if current_user.user_type.capitalize == 'Manager' %>
+    <button type="button" class="btn btn-info ml-auto"><a>Create Project</a></button>
+    <h1>Manager</h1>
 
-<h1>Signed in as "<%= name %>"</h1>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">User Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <th scope="row"><%= user.id %></th>
+            <td><%= user.username.capitalize %></td>
+            <td><%= user.email %></td>
+            <td><%= user.user_type.capitalize %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">User ID</th>
-      <th scope="col">Username</th>
-      <th scope="col">Email</th>
-      <th scope="col">User Type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <th scope="row"><%= user.id %></th>
-        <td><%= user.username.capitalize %></td>
-        <td><%= user.email %></td>
-        <td><%= user.user_type.capitalize %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <% elsif current_user.user_type.capitalize == 'Developer' %>
+    <%# <button type="button" class="btn btn-info">Create Project</button> %>
+    <h1>Developer</h1>
+  <% end %>
+<% else %>
+<h1><%= @msg%></h1>
+<% end %>
+

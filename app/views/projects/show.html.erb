@@ -1,2 +1,11 @@
 <h1>Projects#show</h1>
-<p>Find me in app/views/projects/show.html.erb</p>
+
+<div class="card center" style="width: 18rem;">
+  <div class="card-body">
+    <h3 class="card-title"><strong><%= @project.title%></strong></h3>
+    <h6 class="card-subtitle mb-2 text-muted">Managed by <%= @project.manager.username.capitalize %></h6>
+    <p class="card-text"><%= @project.description %></p>
+    <%= link_to 'Edit', edit_project_path(@project), class: "card-link" %>
+    <%= link_to 'Delete', project_path(@project), data: {:confirm => 'Are you sure?'}, :method => :delete, class: "card-link" %>
+  </div>
+</div>

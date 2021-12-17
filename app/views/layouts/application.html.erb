@@ -10,10 +10,18 @@
 
   <body>
     <%= render 'shared/navbar' %>
-    <%# <div class="alert alert-primary" role="alert">
-    </div> %>
-      <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+
+    <% if notice %>
+      <div class="alert alert-primary" role="alert">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-danger" role="alert">
+        <p class="notice"><%= alert %></p>
+      </div>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>

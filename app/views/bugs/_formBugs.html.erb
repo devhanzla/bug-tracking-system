@@ -1,0 +1,50 @@
+<%= form_for @bug do |f| %>
+  <p>
+    <%= f.label 'Title*' %>
+    <%= f.text_field :title %>
+  </p>
+  
+  <p>
+    <%= f.label :description %>
+    <%= f.text_area :description, size: '70x7' %>
+  </p>
+
+  <p>
+    <%= f.label 'Deadline*' %>
+    <%= f.datetime_field :deadline %>
+  </p>
+
+  <p>
+    <%= f.label :screenshot %>
+    <%= f.file_field :screenshot %>
+  </p>
+
+  <p>
+    <%= f.label 'Bug Type*' %>
+    <%= f.select :bug_type, options_for_select(['Bug', 'Feature']) %>
+  </p>
+
+  <p>
+    <%= f.label 'Status*' %>
+    <%= f.select :status, options_for_select(['New', 'Started', 'Completed', 'Resolved']) %>
+  </p>
+
+  <p>
+    <%= f.label 'Project ID*' %>
+    <%= f.select :project_id, options_for_select(@project_titles) %>
+  </p>
+
+  <p>
+    <%= f.label 'Creator*' %>
+    <%= f.select :creator_id, options_for_select(@usernames) %>
+  </p>
+
+  <p>
+    <%= f.label 'Solver*' %>
+    <%= f.select :solver_id, options_for_select(@usernames) %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

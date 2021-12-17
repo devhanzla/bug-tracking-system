@@ -10,4 +10,8 @@ class User < ApplicationRecord
   has_many :created_projects, class_name: "Project", foreign_key: "manager_id"
 
   has_and_belongs_to_many :projects
+
+  def manager?
+    user_type == 'Manager'
+  end
 end

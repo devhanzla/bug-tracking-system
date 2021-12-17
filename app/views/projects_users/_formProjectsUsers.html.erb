@@ -1,0 +1,15 @@
+<%= form_for @project_user do |f| %>
+  <p>
+    <%= f.label 'Project' %>
+    <%= f.select :project_id, options_for_select(@usernames)%>
+  </p>
+  
+  <p>
+    <%= f.label 'User' %>
+    <%= f.select :user_id, options_for_select(@project_titles) %>
+  </p>
+  
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
